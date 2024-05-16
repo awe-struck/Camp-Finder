@@ -95,7 +95,7 @@ app.use(
   })
 );
 
-// process.env.secret stored in heroku as an env variable
+// process.env.secret stored in heroku/RENDER as an env variable
 const secret = process.env.SECRET || "thisisatempsecret";
 
 const store = MongoStore.create({
@@ -169,6 +169,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("APP LISTENING ON PORT 3000!");
 });
