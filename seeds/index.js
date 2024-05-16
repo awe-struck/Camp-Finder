@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+
 const maptilerClient = require("@maptiler/client");
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -14,10 +15,10 @@ const { descriptors, places } = require("./seedHelpers");
 const Campground = require("../models/campground");
 // const User = require("../models/user");
 
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/campGroundApp";
 main().catch((err) => console.log(err));
-
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/campGroundApp");
+  await mongoose.connect(dbUrl);
   console.log("MONGO CONNECTION OPEN");
 }
 
