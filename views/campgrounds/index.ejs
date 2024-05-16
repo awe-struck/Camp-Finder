@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate')%>
+
+
+<div id="map" class="mb-2 cluster-map">
+</div>
+<h1 class="mb-5">All Campgrounds</h1>
+
+<% for( let campground of campgrounds) {%>
+
+<div class="card container mb-3">
+  <div class="row">
+    <div class="col-md-4 px-0">
+      <% if(campground.images.length){ %>
+      <img crossorigin="anonymous" class="img-fluid w-100" src="<%= campground.images[0].url %>" alt="">
+      <% }else { %>
+      <img crossorigin="anonymous" class="img-fluid w-100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Tent_camping_along_the_Sulayr_trail_in_La_Taha%2C_Sierra_Nevada_National_Park_%28DSCF5147%29.jpg/1200px-Tent_camping_along_the_Sulayr_trail_in_La_Taha%2C_Sierra_Nevada_National_Park_%28DSCF5147%29.jpg" alt="">
+      <% } %>
+    </div>
+
+    <div class="card-body col-md-8">
+      <h2 class="card-title"> <%= campground.title %></h2>
+      <p class="card-text"> <%= campground.description %> </p>
+      <p class="card-text text-muted">
+        <small>
+          <%= campground.location %>
+        </small>
+      </p>
+      <a href="/campgrounds/<%= campground._id %>" class="card-link btn btn-primary"> Show Details </a>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<script>
+  const mapToken = '<%-process.env.MAPTILER_KEY%>'
+  const campgrounds = <%- JSON.stringify(campgrounds)%>
+</script>
+
+<script src="/javascripts/showCampClusters.js"></script>
